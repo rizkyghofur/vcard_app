@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Admin;
 
 class ContactModel extends \App\Models\GoBaseModel
@@ -16,7 +17,7 @@ class ContactModel extends \App\Models\GoBaseModel
 
     protected $allowedFields = [
         "id_user",
-        "full_name",
+        "card_name",
         "first_name",
         "last_name",
         "birthday",
@@ -30,7 +31,7 @@ class ContactModel extends \App\Models\GoBaseModel
     ];
     protected $returnType = "App\Entities\Admin\Contact";
 
-    public static $labelField = "full_name";
+    public static $labelField = "card_name";
 
     protected $validationRules = [
         "address" => [
@@ -49,8 +50,8 @@ class ContactModel extends \App\Models\GoBaseModel
             "label" => "Contacts.firstName",
             "rules" => "trim|max_length[256]",
         ],
-        "full_name" => [
-            "label" => "Contacts.fullName",
+        "card_name" => [
+            "label" => "Contacts.cardName",
             "rules" => "trim|max_length[512]",
         ],
         "id_user" => [
@@ -96,8 +97,8 @@ class ContactModel extends \App\Models\GoBaseModel
         "first_name" => [
             "max_length" => "Contacts.validation.first_name.max_length",
         ],
-        "full_name" => [
-            "max_length" => "Contacts.validation.full_name.max_length",
+        "card_name" => [
+            "max_length" => "Contacts.validation.card_name.max_length",
         ],
         "id_user" => [
             "max_length" => "Contacts.validation.id_user.max_length",
@@ -113,6 +114,7 @@ class ContactModel extends \App\Models\GoBaseModel
         ],
         "phone_number" => [
             "max_length" => "Contacts.validation.phone_number.max_length",
+            'required|regex_match[/^\+(\d{1,3})\d*/]',
         ],
         "position_title" => [
             "max_length" => "Contacts.validation.position_title.max_length",
@@ -121,4 +123,18 @@ class ContactModel extends \App\Models\GoBaseModel
             "max_length" => "Contacts.validation.website.max_length",
         ],
     ];
+
+    public function getUserById($id)
+    {
+        // Try to fetch the user by ID
+        $data = $this->where('id_user', $id)->first();
+
+        // If no data is found, return null or an empty array instead of false
+        if (!$data) {
+            // Return an empty array or null, depending on what works best for your application
+            return null;  // or return []; to ensure it's an array
+        }
+
+        return $data;
+    }
 }

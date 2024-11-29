@@ -20,10 +20,10 @@
 <div class="row">
 	<div class="col-md-12 col-lg-6 px-4">
 		<div class="mb-3">
-			<label for="fullName" class="form-label">
-				<?= lang('Contacts.fullName')  ?>
+			<label for="cardName" class="form-label">
+				<?= lang('Contacts.cardName')  ?>
 			</label>
-			<input type="text" id="fullName" name="full_name" value="<?= old('full_name', $contact->full_name) ?>" class="form-control">
+			<input type="text" id="cardName" name="card_name" value="<?= old('card_name', $contact->card_name) ?>" class="form-control">
 		</div><!--//.mb-3 -->
 
 		<div class="mb-3">
@@ -64,11 +64,10 @@
 	</div><!--//.col -->
 	<div class="col-md-12 col-lg-6 px-4">
 		<div class="mb-3">
-			<label for="phoneNumber" class="form-label">
-				<?= lang('Contacts.phoneNumber')  ?>
-			</label>
+			<label for="phoneNumber" class="form-label"><?= lang('Contacts.phoneNumber')  ?></label>
 			<input type="text" id="phoneNumber" name="phone_number" value="<?= old('phone_number', $contact->phone_number) ?>" class="form-control">
-		</div><!--//.mb-3 -->
+			<small id="phoneHelp" class="form-text text-muted">Please include the country code (e.g., +62 for Indonesia).</small>
+		</div>
 
 		<div class="mb-3">
 			<label for="email" class="form-label">

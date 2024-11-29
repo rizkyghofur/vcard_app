@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 use Config\Auth as AuthConfig;
 
@@ -7,16 +9,15 @@ $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
-{
-require SYSTEMPATH . 'Config/Routes.php';
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+    require SYSTEMPATH . 'Config/Routes.php';
 }
 
 /**
-* --------------------------------------------------------------------
-* Router Setup
-* --------------------------------------------------------------------
-*/
+ * --------------------------------------------------------------------
+ * Router Setup
+ * --------------------------------------------------------------------
+ */
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -25,10 +26,10 @@ $routes->set404Override();
 $routes->setAutoRoute(true);
 
 /**
-* --------------------------------------------------------------------
-* Route Definitions
-* --------------------------------------------------------------------
-*/
+ * --------------------------------------------------------------------
+ * Route Definitions
+ * --------------------------------------------------------------------
+ */
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
@@ -36,7 +37,7 @@ $routes->get('/', 'Home::index');
 
 // Additional in-file definitions
 
-$routes->group('admin', [], function($routes) {
+$routes->group('admin', [], function ($routes) {
     $routes->get('/', 'Home::index', ['as' => 'home']);
 
     $routes->group('', ['namespace' => 'App\Controllers'], static function ($routes) {
@@ -75,26 +76,30 @@ $routes->group('admin', [], function($routes) {
         $routes->get('delete/(:num)', 'Contacts::delete/$1', ['as' => 'deleteContact']);
         $routes->post('allmenuitems', 'Contacts::allItemsSelect', ['as' => 'select2ItemsOfContacts']);
         $routes->post('menuitems', 'Contacts::menuItems', ['as' => 'menuItemsOfContacts']);
+        $routes->get('generate-vcf/(:num)', 'Contacts::generateVcf/$1', ['as' => 'generateVcf']);
+        $routes->get('generate-vcf-qrcode/(:num)', 'Contacts::generateVcfQRCode/$1', ['as' => 'generateVcfQRCode']);
     });
-
 });
+
+//vCard
+$routes->get('vcf/(:num)', 'VCardController::vcf/$1', ['as' => 'vcf']);
+$routes->get('vcf-qrcode/(:num)', 'VCardController::vcfQRCode/$1', ['as' => 'vcfQRCode']);
 
 $routes->match(['GET', 'POST'], 'user-profile', 'UserProfileController::index', ['as' => 'user-profile']);
 
 /**
-* --------------------------------------------------------------------
-* Additional Routing
-* --------------------------------------------------------------------
-*
-* There will often be times that you need additional routing and you
-* need it to be able to override any defaults in this file. Environment
-* based routes is one such time. require() additional route files here
-* to make that happen.
-*
-* You will have access to the $routes object within that file without
-* needing to reload it.
-*/
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
-{
-require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+ * --------------------------------------------------------------------
+ * Additional Routing
+ * --------------------------------------------------------------------
+ *
+ * There will often be times that you need additional routing and you
+ * need it to be able to override any defaults in this file. Environment
+ * based routes is one such time. require() additional route files here
+ * to make that happen.
+ *
+ * You will have access to the $routes object within that file without
+ * needing to reload it.
+ */
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

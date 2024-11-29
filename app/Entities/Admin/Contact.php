@@ -8,7 +8,7 @@ class Contact extends \CodeIgniter\Entity\Entity
 {
     protected $attributes = [
         "id_user" => null,
-        "full_name" => null,
+        "card_name" => null,
         "first_name" => null,
         "last_name" => null,
         "birthday" => null,
@@ -22,26 +22,24 @@ class Contact extends \CodeIgniter\Entity\Entity
     ];
     protected $casts = [];
     /**
-     * Returns a full name: "first last"
+     * Returns a card name: "first last"
      *
      * @return string
      */
-    public function getFullName()
+    public function getCardName()
     {
-        $fullName =
-            (!empty($this->attributes["first_name"]) ? trim($this->attributes["first_name"]) . " " : "") .
+        // Check if the card_name attribute is available and return it
+        return !empty($this->attributes["card_name"]) ? trim($this->attributes["card_name"]) : (!empty($this->attributes["first_name"]) ? trim($this->attributes["first_name"]) . " " : "") .
             (!empty($this->attributes["last_name"]) ? trim($this->attributes["last_name"]) : "");
-        $name = empty($fullName) ? $this->attributes["first_name"] : $fullName;
-        return $name;
     }
 
     /**
-     * Alias for getFullName()
+     * Alias for getCardName()
      *
      * @return string
      */
-    public function fullName()
+    public function cardName()
     {
-        return $this->getFullName();
+        return $this->getCardName();
     }
 }

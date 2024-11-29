@@ -15,6 +15,7 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
+
 use CodeIgniter\Controller;
 use CodeIgniter\Database\Query;
 use ReflectionObject;
@@ -24,7 +25,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class GoBaseController extends Controller {
+abstract class GoBaseController extends Controller
+{
 
     /**
      *
@@ -59,7 +61,7 @@ abstract class GoBaseController extends Controller {
      */
     protected $isBackEnd = false;
 
-     /**
+    /**
      * Placeholder for a DB object
      *
      * @var object
@@ -134,10 +136,10 @@ abstract class GoBaseController extends Controller {
      * @var array
      */
     protected $viewData;
-    
+
     protected $currentAction;
     protected $session;
-        /**
+    /**
      * @var \Myth\Auth\Authorization\FlatAuthorization
      */
     protected $authorize;
@@ -175,14 +177,15 @@ abstract class GoBaseController extends Controller {
      *
      * @var array
      */
-    protected $helpers = ['session', 'go_common', 'text', 'form', 'auth']; 
+    protected $helpers = ['session', 'go_common', 'text', 'form', 'auth'];
 
     protected $indexRoute = '';
 
     /**
      * Constructor.
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger) {
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
@@ -192,14 +195,14 @@ abstract class GoBaseController extends Controller {
         // E.g.:
         $this->services = \Config\Services::class;
         $this->session = $this->services::session();
-        
-	$this->auth = $this->services::authentication();
 
-$this->auth->setUserModel( new \App\Models\UserModel() );
+        $this->auth = $this->services::authentication();
 
-$this->authorize = $this->services::authorization();
+        $this->auth->setUserModel(new \App\Models\UserModel());
 
-        if ((!isset($this->viewData['pageTitle']) || empty($this->viewData['pageTitle']) )) {  
+        $this->authorize = $this->services::authorization();
+
+        if ((!isset($this->viewData['pageTitle']) || empty($this->viewData['pageTitle']))) {
             if (isset(static::$pluralObjectNameCc) && !empty(static::$pluralObjectNameCc)) {
                 $this->viewData['pageTitle'] = lang(ucfirst(static::$pluralObjectNameCc) . 'moduleTitle');
             } else if (isset(static::$pluralObjectName) && !empty(static::$pluralObjectName)) {
@@ -218,8 +221,7 @@ $this->authorize = $this->services::authorization();
         if (empty(static::$controllerSlug)) {
             $reflect = new \ReflectionClass($this);
             $className = $reflect->getShortName();
-            $this->viewData['currentModule'] = slugify(convertToSnakeCase(str_replace('Controller','',$className)));
-
+            $this->viewData['currentModule'] = slugify(convertToSnakeCase(str_replace('Controller', '', $className)));
         } else {
             $this->viewData['currentModule'] = strtolower(static::$controllerSlug);
         }
@@ -231,15 +233,16 @@ $this->authorize = $this->services::authorization();
         }
 
         $this->viewData['viewPath'] = static::$viewPath;
-        
+
         $this->viewData['currentLocale'] = $this->request->getLocale();
 
         $this->viewData['action'] = '';
     }
 
-    public function index() {
+    public function index()
+    {
 
-        if ((!isset($this->viewData['boxTitle']) || empty($this->viewData['boxTitle']) ) && isset(static::$pluralObjectName) && !empty(static::$pluralObjectName)) {
+        if ((!isset($this->viewData['boxTitle']) || empty($this->viewData['boxTitle'])) && isset(static::$pluralObjectName) && !empty(static::$pluralObjectName)) {
             $this->viewData['boxTitle'] = ucfirst(static::$pluralObjectName);
         }
 
@@ -249,7 +252,7 @@ $this->authorize = $this->services::authorization();
 
         // if $this->currentView is assigned a view name, use it, otherwise assume the view something like 'viewSingleObjectList'
         $viewFilePath = static::$viewPath . (empty($this->currentView) ? 'view' . ucfirst(static::$singularObjectNameCc) . 'List' : $this->currentView);
-    
+
         return view($viewFilePath, $this->viewData);
     }
 
@@ -259,10 +262,11 @@ $this->authorize = $this->services::authorization();
      * @param null $objId
      * @return string
      */
-    protected function displayForm($forMethod, $objId = null) {
+    protected function displayForm($forMethod, $objId = null)
+    {
 
         $this->viewData['usingSelect2'] = true;
-        
+
         $validation = $this->services::validation();
 
         $action = str_replace(static::class . '::', '', $forMethod);
@@ -283,10 +287,10 @@ $this->authorize = $this->services::authorization();
             $this->viewData['formAction'] = base_url(strtolower($this->viewData['currentModule'])  . '/' . $action . '/' . $formActionSuffix);
         }
 
-        if ((!isset($this->viewData['boxTitle']) || empty($this->viewData['boxTitle']) ) && isset(static::$singularObjectName) && !empty(static::$singularObjectName)) {
+        if ((!isset($this->viewData['boxTitle']) || empty($this->viewData['boxTitle'])) && isset(static::$singularObjectName) && !empty(static::$singularObjectName)) {
             $this->viewData['boxTitle'] = ucfirst($action) . $actionSuffix . ucfirst(static::$singularObjectName);
         }
-        
+
         $this->viewData['validation'] = $validation;
 
         $viewFilePath = static::$viewPath . 'view' . ucfirst(static::$singularObjectNameCc) . 'Form';
@@ -294,7 +298,8 @@ $this->authorize = $this->services::authorization();
         return view($viewFilePath, $this->viewData);
     }
 
-    protected function redirect2listView($flashDataKey = null, $flashDataValue = null) {
+    protected function redirect2listView($flashDataKey = null, $flashDataValue = null)
+    {
 
         if (!empty($this->indexRoute)) {
             $uri = base_url(route_to($this->indexRoute));
@@ -314,9 +319,9 @@ $this->authorize = $this->services::authorization();
                 } else {
                     $getHandlingRoutes = $routes->getRoutes('get');
 
-                    $indexMethod = array_search('\\App\\Controllers\\'.$className.'::index', $getHandlingRoutes);
+                    $indexMethod = array_search('\\App\\Controllers\\' . $className . '::index', $getHandlingRoutes);
                     if ($indexMethod) {
-                        $uri = route_to('App\\Controllers\\'.$className.'::index');
+                        $uri = route_to('App\\Controllers\\' . $className . '::index');
                     } else {
                         $uri = base_url(static::$controllerSlug);
                     }
@@ -325,7 +330,7 @@ $this->authorize = $this->services::authorization();
                 $uri = base_url($className);
             }
         }
-        
+
         if ($flashDataKey != null && $flashDataValue != null) {
             return redirect()->to($uri)->with($flashDataKey, $flashDataValue);
         } else {
@@ -333,7 +338,8 @@ $this->authorize = $this->services::authorization();
         }
     }
 
-    public function delete($requestedId, bool $deletePermanently = true) {
+    public function delete($requestedId, bool $deletePermanently = true)
+    {
 
         if (is_string($requestedId)) :
             if (is_numeric($requestedId)) :
@@ -356,51 +362,51 @@ $this->authorize = $this->services::authorization();
 
         if (!isset($error)) :
             try {
-            if ($deletePermanently) :
-                if (is_numeric($id)) :
-                    $rawResult = $this->primaryModel->delete($id);
+                if ($deletePermanently) :
+                    if (is_numeric($id)) :
+                        $rawResult = $this->primaryModel->delete($id);
+                    else:
+                        $rawResult = $this->primaryModel->where($this->primaryModel->getPrimaryKeyName(), $id)->delete();
+                    endif;
                 else:
-                    $rawResult = $this->primaryModel->where($this->primaryModel->getPrimaryKeyName(), $id)->delete();
+                    $currentDateAndTime = date('Y-m-d H:i:s');
+                    $rawResult = $this->model->update($id, ['deleted_at' => $currentDateAndTime]);
                 endif;
-            else:
-                $currentDateAndTime = date('Y-m-d H:i:s');
-                $rawResult = $this->model->update($id, ['deleted_at' => $currentDateAndTime]);
-            endif;
             } catch (\Exception $e) {
-                log_message('error', "Exception: Error deleting object named '".(static::$singularObjectName ?? 'unknown')."' with  $id :
-".$e->getMessage());
+                log_message('error', "Exception: Error deleting object named '" . (static::$singularObjectName ?? 'unknown') . "' with  $id :
+" . $e->getMessage());
             }
         endif;
 
         $ar = $this->primaryModel->db->affectedRows();
-        
+
         try {
             $dbError = $this->primaryModel->db->error();
         } catch (\Exception $e2) {
             if ($e2->getMessage() != "Trying to get property 'errno' of non-object") {
-               log_message('error', $e2->getCode() . ' : ' . $e2->getMessage()) ;
+                log_message('error', $e2->getCode() . ' : ' . $e2->getMessage());
             }
         }
         if (isset($dbError['code']) && isset($dbError['message'])) {
-            log_message('error', $dbError['code'].' '.$dbError['message']);
+            log_message('error', $dbError['code'] . ' ' . $dbError['message']);
         } else {
-            $dbError = ['code' => '', 'message'=>''];
+            $dbError = ['code' => '', 'message' => ''];
         }
 
-        $result = ['persisted'=>$ar>0, 'ar'=>$ar, 'persistedId'=>null, 'affectedRows'=>$ar, 'errorCode'=>$dbError['code'], 'error'=>$dbError['message']];
-        
+        $result = ['persisted' => $ar > 0, 'ar' => $ar, 'persistedId' => null, 'affectedRows' => $ar, 'errorCode' => $dbError['code'], 'error' => $dbError['message']];
+
         $nameOfDeletedObject = static::$singularObjectNameCc;
-        
+
         if ($ar < 1) :
             $errorMessage = lang('Basic.global.deleteError', [$nameOfDeletedObject]); // 'No ' . static::$singularObjectName . ' was deleted now, because it probably had already been deleted.';
-            $fdKey = isset($this->viewData['usingSweetAlert'] ) && $this->viewData['usingSweetAlert'] ? 'sweet-error' : 'errorMessage';
+            $fdKey = isset($this->viewData['usingSweetAlert']) && $this->viewData['usingSweetAlert'] ? 'sweet-error' : 'errorMessage';
             $errorMessage = str_replace("'", "'", $errorMessage);
             return $this->redirect2listView($fdKey, str_replace("'", '', $errorMessage));
         else:
             $message = lang('Basic.global.deleteSuccess', [$nameOfDeletedObject]); // 'The ' . static::$singularObjectName . ' was successfully deleted.';
-            $fdKey = isset($this->viewData['usingSweetAlert'] ) && $this->viewData['usingSweetAlert'] ? 'sweet-success' : 'successMessage';
-            if ( isset($result['affectedRows']) && $result['affectedRows'] > 1) :
-                log_message('warning', "More than one row has been deleted in attempt to delete row for object named '".(static::$singularObjectName ?? 'unknown')."' with id: $id");
+            $fdKey = isset($this->viewData['usingSweetAlert']) && $this->viewData['usingSweetAlert'] ? 'sweet-success' : 'successMessage';
+            if (isset($result['affectedRows']) && $result['affectedRows'] > 1) :
+                log_message('warning', "More than one row has been deleted in attempt to delete row for object named '" . (static::$singularObjectName ?? 'unknown') . "' with id: $id");
             endif;
             $message = str_replace("'", "'", $message);
             return $this->redirect2listView($fdKey, $message);
@@ -427,7 +433,7 @@ $this->authorize = $this->services::authorization();
         } else {
             $valid = $this->validate($validationRules);
         }
-        
+
         $this->validationErrors = $valid ? '' : $this->validator->getErrors();
 
         /*
@@ -447,18 +453,31 @@ $this->authorize = $this->services::authorization();
      * @param array|null $postData
      * @return array
      */
-    protected function sanitized(array $postData = null, bool $nullIfEmpty = false) {
+    protected function sanitized(array $postData = null, bool $nullIfEmpty = false)
+    {
         if ($postData == null) {
             $postData = $this->request->getPost();
         }
+
         $sanitizedData = [];
+
         foreach ($postData as $k => $v) {
+            // Skip CSRF token
             if ($k == csrf_token()) {
                 continue;
             }
-            $sanitizationResult = goSanitize($v, $nullIfEmpty);
-            $sanitizedData[$k] = $sanitizationResult[0];
+
+            // Check if it's the phone number field and handle it differently
+            if ($k == 'phone_number') {
+                // Preserve the "+" symbol in phone numbers
+                $sanitizedData[$k] = trim($v);
+            } else {
+                // For other fields, use your original sanitization method
+                $sanitizationResult = goSanitize($v, $nullIfEmpty);
+                $sanitizedData[$k] = $sanitizationResult[0];
+            }
         }
+
         return $sanitizedData;
     }
 
@@ -466,7 +485,8 @@ $this->authorize = $this->services::authorization();
      * Convenience method for common exception handling
      * @param \Exception $e
      */
-    protected function dealWithException($e) {
+    protected function dealWithException($e)
+    {
         // using another try / catch block to prevent to avoid CodeIgniter bug throwing trivial exceptions for querying DB errors
         try {
             $query = $this->model->db->getLastQuery();
@@ -474,23 +494,24 @@ $this->authorize = $this->services::authorization();
             $dbError = $this->model->db->error();
             $userFriendlyErrMsg = lang('Basic.global.persistErr1', [static::$singularObjectNameCc]);
             if (isset($dbError['code']) && $dbError['code'] == 1062) :
-                $userFriendlyErrMsg .= PHP_EOL.lang('Basic.global.persistDuplErr', [static::$singularObjectNameCc]);
+                $userFriendlyErrMsg .= PHP_EOL . lang('Basic.global.persistDuplErr', [static::$singularObjectNameCc]);
             endif;
             // $userFriendlyErrMsg = str_replace("'", "'", $userFriendlyErrMsg); // Uncomment if experiencing unescaped single quote errors
             if (method_exists($e, 'getMessage')) {
-                log_message('error', $userFriendlyErrMsg.PHP_EOL.$e->getMessage().PHP_EOL.$queryStr);
+                log_message('error', $userFriendlyErrMsg . PHP_EOL . $e->getMessage() . PHP_EOL . $queryStr);
             }
             if (isset($dbError['message']) && !empty($dbError['message'])) :
-                log_message('error', $dbError['code'].' : '.$dbError['message']);
+                log_message('error', $dbError['code'] . ' : ' . $dbError['message']);
             endif;
             $this->viewData['errorMessage'] = $userFriendlyErrMsg;
         } catch (\Exception $e2) {
-            log_message('debug', 'You can probably safely ignore this: In attempt to check DB errors, CodeIgniter threw: '.PHP_EOL.$e2->getMessage());
+            log_message('debug', 'You can probably safely ignore this: In attempt to check DB errors, CodeIgniter threw: ' . PHP_EOL . $e2->getMessage());
         }
     }
 
     // Collect the queries so something can be done with them later.
-    public static function collect(Query $query) {
+    public static function collect(Query $query)
+    {
         static::$queries[] = $query;
     }
 
@@ -501,7 +522,8 @@ $this->authorize = $this->services::authorization();
      * @param object $sourceObject
      * @return object
      */
-    function cast($destination, $sourceObject) {
+    function cast($destination, $sourceObject)
+    {
         if (is_string($destination)) {
             $destination = new $destination();
         }
@@ -522,5 +544,4 @@ $this->authorize = $this->services::authorization();
         }
         return $destination;
     }
-
 }

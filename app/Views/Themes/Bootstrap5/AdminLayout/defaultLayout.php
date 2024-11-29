@@ -24,18 +24,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <meta name="<?= csrf_token() ?>" content="<?= csrf_hash() ?>">
-    
+
     <title><?= isset($pageTitle) ? $pageTitle . ' | ' : '' ?><?= config('Basics')->appName ?></title>
 
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="<?= base_url('assets/bs5/dashboard.css?v='.(ENVIRONMENT == 'production' ? 1 : time())) ?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="<?= base_url('assets/bs5/dashboard.css?v=' . (ENVIRONMENT == 'production' ? 1 : time())) ?>">
 
     <!-- flag-icon-css -->
     <link rel="stylesheet" href="<?= base_url('assets/flag-icon-css/css/flag-icon.min.css') ?>">
@@ -48,10 +48,10 @@
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
         </symbol>
         <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
         </symbol>
         <symbol id="speedometer2" viewBox="0 0 16 16">
             <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z" />
@@ -84,10 +84,12 @@
                         <!-- End main content -->
                         <noscript>
                             <div class="alert alert-warning mt-3" role="alert">
-                                <svg class="bi mt-1 me-3 float-start" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <svg class="bi mt-1 me-3 float-start" width="24" height="24" role="img" aria-label="Warning:">
+                                    <use xlink:href="#exclamation-triangle-fill" />
+                                </svg>
                                 <div>
-                                    <h4><?=lang('Basic.global.Warning')?></h4>
-                                    <?=lang('Basic.global.jsNeedMsg')?>
+                                    <h4><?= lang('Basic.global.Warning') ?></h4>
+                                    <?= lang('Basic.global.jsNeedMsg') ?>
                                 </div>
                             </div>
                         </noscript>
@@ -98,12 +100,10 @@
                         <div class="container">
                             <!-- Default to the left -->
                             <strong>&copy; <?= date('Y') ?> <a href="<?= config('Basics')->theme['footer']['orglink'] ?>">
-                                    <?= config('Basics')->theme['footer']['organization'] ?></a>.</strong> <?=lang('Basic.global.allRightsReserved')?>
+                                    <?= config('Basics')->theme['footer']['organization'] ?></a>.</strong> <?= lang('Basic.global.allRightsReserved') ?>
                             <!-- To the right -->
                             <div class="float-end d-none d-sm-inline">
-                                <?= config('Basics')->appName ?> <?=lang('Basic.global.createdWith')?>
-                                <a href="https://www.ozar.net/products/codeigniterwizard?r=uap455mldm&layout=1&theme=bs5"><strong>CodeIgniter
-                                        Wizard</strong></a> <?=lang('Basic.global.createdWithSuffix')?>
+                                <?= config('Basics')->appName ?>
                             </div>
                         </div>
                     </footer>
@@ -114,16 +114,13 @@
 
     <?= $this->renderSection('footerAdditions') ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <?= $this->renderSection('additionalExternalJs') ?>
 
     <script type="text/javascript">
-
-        
-        
         var theTable;
-        var <?=csrf_token() ?? 'token'?>v = '<?= csrf_hash() ?>';
+        var <?= csrf_token() ?? 'token' ?>v = '<?= csrf_hash() ?>';
 
         const body = document.getElementsByTagName('body')[0];
         const appNameCc = '<?= convertToCamelCase(config('Basics')->appName) ?>';
@@ -149,7 +146,7 @@
             // Handle cards
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-               card.setAttribute('data-bs-theme', theMode);
+                card.setAttribute('data-bs-theme', theMode);
             });
 
             const modal = document.getElementById('confirm2delete');
@@ -168,11 +165,11 @@
 
         function toggleDark() {
             body.classList.toggle("dark-mode");
-            
+
             // Toggle footer classes
             footer.classList.toggle("bg-light");
             footer.classList.toggle("bg-gray");
-            
+
             let dark = JSON.parse(localStorage.getItem(appDarkModeDataKey));
             if (dark) {
                 localStorage.setItem(appDarkModeDataKey, JSON.stringify(false));
@@ -181,7 +178,7 @@
                 localStorage.setItem(appDarkModeDataKey, JSON.stringify(true));
                 updateDarkThemeElements(true);
             }
-            
+
             // Toggle Bootstrap Icons
             darkModeTogglerBtn.classList.toggle("bi-moon");
             darkModeTogglerBtn.classList.toggle("bi-sun");
@@ -195,22 +192,28 @@
             }
             $('input[name="<?= csrf_token() ?>"]').val(andac);
             $('meta[name="<?= config('Security')->tokenName ?>"]').attr('content', andac)
-            $.ajaxSetup({ headers: {'<?= config('Security')->headerName ?>': andac, 'X-Requested-With': 'XMLHttpRequest' }, <?=csrf_token()?>: andac });
+            $.ajaxSetup({
+                headers: {
+                    '<?= config('Security')->headerName ?>': andac,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                <?= csrf_token() ?>: andac
+            });
         }
 
         function isInViewport(element) {
             // Check if element exists
             if (!element) return false;
-            
+
             const rect = element.getBoundingClientRect();
             const windowHeight = window.innerHeight || document.documentElement.clientHeight;
             const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-            
+
             // Consider element visible if it's partially in viewport
             // We can adjust the visibility threshold (currently set to 0 - any part visible counts)
             const verticalVisible = rect.top < windowHeight && rect.bottom >= 0;
             const horizontalVisible = rect.left < windowWidth && rect.right >= 0;
-            
+
             return verticalVisible && horizontalVisible;
         }
 
@@ -241,7 +244,7 @@
                     $('a[aria-expanded=true]').attr('aria-expanded', 'false');
                 }
                 if (theTable != null && theTable.columns !== undefined) {
-                    setTimeout(function(){ 
+                    setTimeout(function() {
                         theTable.columns.adjust().draw();
                     }, 600);
                 }
@@ -284,6 +287,58 @@
         });
     </script>
 
+    <script>
+        function copyLink(url) {
+            // Create a temporary input field to copy the URL
+            var tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = url;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Show feedback message
+            var feedback = document.getElementById('copy-feedback');
+            feedback.style.display = 'block';
+
+            // Hide feedback message after 2 seconds
+            setTimeout(function() {
+                feedback.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the phone number input field
+            const phoneInput = document.querySelector("#phoneNumber");
+
+            // Regular expression to match phone numbers with a country code (starts with + followed by digits)
+            const countryCodeRegex = /^\+(\d{1,3})\d*/;
+
+            // Listen for input or form submission
+            phoneInput.addEventListener("blur", function() {
+                let phoneNumber = phoneInput.value.trim();
+
+                // Check if the phone number starts with a country code
+                if (!countryCodeRegex.test(phoneNumber)) {
+                    // Show a warning message if no country code is found
+                    alert("Country code not found. Please add a valid country code.");
+                }
+            });
+
+            // Optional: You can also do this check on form submission
+            const form = document.querySelector("form"); // Replace with your form's selector
+            form.addEventListener("submit", function(event) {
+                let phoneNumber = phoneInput.value.trim();
+
+                if (!countryCodeRegex.test(phoneNumber)) {
+                    event.preventDefault(); // Prevent form submission if country code is missing
+                    alert("Please include a valid country code.");
+                }
+            });
+        });
+    </script>
 
 </body>
 

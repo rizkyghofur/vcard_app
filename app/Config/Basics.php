@@ -24,11 +24,12 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
-class Basics extends BaseConfig {
+class Basics extends BaseConfig
+{
 
 	public $appName = 'vCard App';
 
-	public $i18n = 'English'; 
+	public $i18n = 'English';
 
 	public $languages = [
 		'en' => 'English',
@@ -49,41 +50,40 @@ class Basics extends BaseConfig {
 		'name' => 'Bootstrap5',
 		'body-sm' => false,
 		'navbar'  => [
-		'bg'     => 'gray',
-		'type'   => 'dark',
-		'border' => true,
-		'user'   => [
-		'visible' => true,
-		'shadow'  => 0,
+			'bg'     => 'gray',
+			'type'   => 'dark',
+			'border' => true,
+			'user'   => [
+				'visible' => true,
+				'shadow'  => 0,
+			],
 		],
-	],
 		'sidebar' => [
-		'type'    => 'dark',
-		'shadow'  => 4,
-		'border'  => false,
-		'compact' => true,
-		'links'   => [
-		'bg'     => 'black', // only works with AdminLTE theme
-		'shadow' => 1,
-	],
-		'brand' => [
-		'bg'   => 'gray-dark',
-		'logo' => [
-		'icon'   => 'favicon.ico', // path to image | this example icon on public root folder.
-		'text'   => 'vCard App',
-		'shadow' => 2,
+			'type'    => 'dark',
+			'shadow'  => 4,
+			'border'  => false,
+			'compact' => true,
+			'links'   => [
+				'bg'     => 'black', // only works with AdminLTE theme
+				'shadow' => 1,
+			],
+			'brand' => [
+				'bg'   => 'gray-dark',
+				'logo' => [
+					'icon'   => 'favicon.ico', // path to image | this example icon on public root folder.
+					'text'   => 'vCard App',
+					'shadow' => 2,
+				],
+			],
+			'user' => [
+				'visible' => true,
+				'shadow'  => 2,
+			],
 		],
-	],
-		'user' => [
-		'visible' => true,
-		'shadow'  => 2,
-		],
-	],
 		'footer' => [
-		'fixed'      => false,
-		'organization' => 'Your Awesome Company',
-		'orglink' => 'https://www.ozar.net/',
+			'fixed'      => false,
+			'organization' => 'PropNex Plus',
+			'orglink' => 'https://propnex.co.id/',
 		],
 	];
-
 }
