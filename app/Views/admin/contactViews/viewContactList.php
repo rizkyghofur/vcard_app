@@ -75,14 +75,17 @@
 								</td>
 								<td class="align-middle text-center text-nowrap">
 									<?= anchor(route_to('editContact', $item->id_user), lang('Basic.global.edit'), ['class' => 'btn btn-sm btn-warning btn-edit me-1', 'data-id' => $item->id_user]); ?>
-									<?= anchor('#confirm2delete', lang('Basic.global.Delete'), ['class' => 'btn btn-sm btn-danger btn-delete ms-1', 'data-href' => route_to('deleteContact', $item->id_user), 'data-bs-toggle' => 'modal', 'data-bs-target' => '#confirm2delete']); ?>
-									<button class="btn btn-sm btn-success ms-1"
+									<?= anchor('#confirm2delete', lang('Basic.global.Delete'), ['class' => 'btn btn-sm btn-danger btn-delete me-1', 'data-href' => route_to('deleteContact', $item->id_user), 'data-bs-toggle' => 'modal', 'data-bs-target' => '#confirm2delete']); ?>
+									<!-- <button class="btn btn-sm btn-success ms-1"
 										onclick="copyLink('<?= base_url('vcf/' . $item->id_user); ?>')">
 										<?= lang('Basic.global.copyVcfLink') ?>
 									</button>
 									<button class="btn btn-sm btn-success ms-1"
 										onclick="copyLink('<?= base_url('vcf-qrcode/' . $item->id_user); ?>')">
 										<?= lang('Basic.global.copyVcfQrCodeLink') ?>
+									</button> -->
+									<button type="button" class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#shareVCardModal" data-user-id="<?= $item->id_user ?>">
+										Share vCard
 									</button>
 								</td>
 							</tr>

@@ -340,6 +340,43 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            // Open shareVCardModal with user data
+            $('#shareVCardModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var userId = button.data('user-id'); // Extract user ID from 1  button data attribute
+
+                // Find the corresponding table row based on user ID
+                var userRow = $("#tableOfContacts tbody tr").find(`td[class*='id_user'][text='${userId}']`).parent();
+
+                // Get contact details from the table row
+                var cardName = userRow.find('td:nth-child(2)').text().trim();
+                var firstName = userRow.find('td:nth-child(3)').text().trim();
+                var lastName = userRow.find('td:nth-child(4)').text().trim();
+                // ... Extract other details as needed (birthday, organization, etc.)
+
+                // Update modal content based on extracted data
+                $(this).find('#vcfFile').val(`<?= base_url('vcf/') ?>${userId}`); // Replace with your vCard link generation logic
+                $(this).find('#qrCode').val(`<?= base_url('vcf-qrcode/') ?>${userId}`); // Replace with your QR code generation logic (if applicable)
+                // ... Update other fields based on extracted data
+
+            });
+        });
+    </script>
+
+    <script>
+        function copyToClipboard(id) {
+            var copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+
+
+            alert("Text copied to clipboard!");
+        }
+    </script>
+
 </body>
 
 </html>

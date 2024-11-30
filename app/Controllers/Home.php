@@ -27,7 +27,7 @@ class Home extends BaseController
 	public function index()
 	{
 		if (!logged_in()) {
-			return redirect()->to('admin/login')->with('warningMessage', lang('Auth.notLoggedIn'));
+			return redirect()->to('admin/login');
 		}
 		if (!in_groups('admin')) {
 			return redirect()->back()->with('errorMessage', lang('Auth.notEnoughPrivilege'));
