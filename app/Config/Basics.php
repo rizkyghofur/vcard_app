@@ -82,8 +82,8 @@ class Basics extends BaseConfig
 		],
 		'footer' => [
 			'fixed'      => false,
-			'organization' => 'PropNex Plus',
-			'orglink' => 'https://propnex.co.id/',
+			'organization' => 'Rizki Abdul Gofur',
+			'orglink' => 'https://rizkyghofur.my.id/',
 		],
 	];
 }

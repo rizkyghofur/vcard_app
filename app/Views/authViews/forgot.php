@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <div class="text-center">
-    <img class="mb-4" src="<?= base_url('assets/logo.jpg') ?>" alt="logo" width="72" height="57">
+    <img class="mb-4" src="<?= base_url('assets/logo.svg') ?>" alt="logo" width="72" height="57">
     <h1 class="h1 mb-3 fw-normal"><?= config('Basics')->appName ?></h1>
     <h3 class="h4 mb-3 fw-normal"><?= lang('Auth.forgotPassword') ?></h3>
     <p class="login-box-msg"><?= lang('Auth.enterEmailForInstructions') ?></p>

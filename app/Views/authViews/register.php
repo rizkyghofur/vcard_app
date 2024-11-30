@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="text-center">
     <a href="<?= base_url() ?>">
-        <img class="mb-4" src="<?= base_url('assets/logo.jpg') ?>" alt="logo" width="72" height="57">
+        <img class="mb-4" src="<?= base_url('assets/logo.svg') ?>" alt="logo" width="72" height="57">
     </a>
     <h1 class="h1 mb-3 fw-bold"><?= config('Basics')->appName ?></h1>
     <h2 class="h4 mb-3 fw-normal"><?= lang('Auth.register') ?></h2>
